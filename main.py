@@ -66,3 +66,16 @@ def log_progress_for_track(track_id: int):
     conn.commit()
     conn.close()
     return {"message": f"Successfully logged progress for track {track_id}"}
+
+app.delete("/tracks/{track_id}", status_code=204)
+def delete_track(track_id: int):
+    conn = get_db_connection()
+    cursor = conn.execute('DELETE FROM tracks WHERE id = ?', (track_id,))
+    
+    if cursor.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail=f"Track with id {track_id} not found")
+
+    conn.commit()
+    conn.close()
+    return
