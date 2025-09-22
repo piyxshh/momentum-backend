@@ -2,6 +2,7 @@ import sqlite3
 from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 class TrackCreate(BaseModel):
     name: str
